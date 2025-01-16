@@ -57,5 +57,25 @@ class Flyer
     {
         $this->pdfUrl = $pdfUrl;
     }
+    public function getRegions(): Collection
+{
+    return $this->regions;
+}
+
+public function addRegion(Region $region): void
+{
+    if (!$this->regions->contains($region)) {
+        $this->regions->add($region);
+        $region->addFlyer($this);
+    }
+}
+
+public function removeRegion(Region $region): void
+{
+    if ($this->regions->contains($region)) {
+        $this->regions->removeElement($region);
+        $region->removeFlyer($this);
+    }
+}
 
 }

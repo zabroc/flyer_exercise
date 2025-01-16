@@ -1,9 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-
 namespace App\Entity;
-
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -15,8 +13,7 @@ class Region
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
     #[ORM\Column(type: 'integer')]
-    private int $id;
-
+    private ?int $id = null;
     #[ORM\Column(type: 'string')]
     private string $name;
 
@@ -28,14 +25,9 @@ class Region
         $this->flyers = new ArrayCollection();
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function setId(int $id): void
-    {
-        $this->id = $id;
     }
 
     public function getName(): string
@@ -48,4 +40,24 @@ class Region
         $this->name = $name;
     }
 
+    public function getFlyers(): Collection
+    {
+        return $this->flyers;
+    }
+
+    public function addFlyer(Flyer $flyer): void
+    {
+        if (!$this->flyers->contains($flyer)) {
+            $this->flyers->add($flyer);
+            $flyer->addRegion($this);
+        }
+    }
+
+    public function removeFlyer(Flyer $flyer): void
+    {
+        if ($this->flyers->contains($flyer)) {
+            $this->flyers->removeElement($flyer);
+            $flyer->removeRegion($this);
+        }
+    }
 }
