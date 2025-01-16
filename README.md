@@ -3,8 +3,10 @@
 ## Preparation
 
 1. Start symfony server like symfony server:start
-2. Look at http://localhost:8000/flyer/edit/1, make sure there is a  form to save flyer meta data.
-3. The form should be able to update flyer data.
+2. composer install
+3. php bin/console doctrine:migrations:migrate
+4. Look at http://localhost:8000/flyer/edit/1, make sure there is a  form to save flyer meta data.
+5. The form should be able to update flyer data.
 
 ## Exercise
 
